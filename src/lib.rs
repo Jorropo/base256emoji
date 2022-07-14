@@ -36,7 +36,7 @@ pub trait Base {
 		Ok(output)
 	}
 
-	fn encode(input: &Vec<u8>) -> String {
+	fn encode(input: &[u8]) -> String {
 		let s = input
 			.iter()
 			.map(|&x| Self::ALPHABET[x as usize].len_utf8())
