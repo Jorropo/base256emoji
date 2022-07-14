@@ -3,6 +3,14 @@
 version = 3
 
 [[package]]
+name = "base256emoji"
+version = "1.0.0"
+dependencies = [
+ "const-str",
+ "match-lookup",
+]
+
+[[package]]
 name = "const-str"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -35,14 +43,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3bcdf212e9776fbcb2d23ab029360416bb1706b1aea2d1a5ba002727cbcab804"
 dependencies = [
  "proc-macro2",
-]
-
-[[package]]
-name = "rust-base256utf8"
-version = "0.1.0"
-dependencies = [
- "const-str",
- "match-lookup",
 ]
 
 [[package]]
