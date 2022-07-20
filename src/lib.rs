@@ -23,28 +23,26 @@ pub trait Base {
 
 	fn decode(input: &str) -> Result<Vec<u8>, DecodeError> {
 		let s = input.chars().count();
-		let mut output = vec!(0u8; s);
+		let mut output = vec![0u8; s];
 		for (i, c) in input.chars().enumerate() {
-			output[i] = match Self::ALPHABET.iter().position(|&x| x == c) {
-				Some(c) => c.try_into().unwrap(),
-				None => {
-					return Err(DecodeError {
-						codepoint: c,
-						index: i,
-					});
-				}
-			};
+			output[i] = Self::ALPHABET
+				.iter()
+				.position(|&x| x == c)
+				.ok_or(DecodeError {
+					codepoint: c,
+					index: i,
+				})? as u8;
 		}
 
 		Ok(output)
 	}
 
-	fn encode(input: &Vec<u8>) -> String {
+	fn encode(input: &[u8]) -> String {
 		let s = input
 			.iter()
 			.map(|&x| Self::ALPHABET[x as usize].len_utf8())
 			.sum();
-		let mut output: Vec<u8> = vec!(0; s);
+		let mut output: Vec<u8> = vec![0; s];
 		let mut i = 0;
 		for &v in input.iter() {
 			let c = Self::ALPHABET[v as usize];
@@ -89,7 +87,7 @@ mod tests {
 
 	#[test]
 	fn byte1_rt() {
-		let mut org = vec!(0u8; 1);
+		let mut org = vec![0u8; 1];
 		for i in 0..255 {
 			org[0] = i;
 			let r = match Emoji::decode(Emoji::encode(&org).as_str()) {
