@@ -1,4 +1,8 @@
-use std::fmt;
+#![cfg_attr(not(test), no_std)]
+
+use core::fmt;
+extern crate alloc;
+use alloc::{vec, vec::Vec, string::String};
 
 #[derive(Debug, Clone)]
 pub struct DecodeError {
@@ -73,6 +77,9 @@ gen_alphabet!(Emoji, "🚀🪐☄🛰🌌🌑🌒🌓🌔🌕🌖🌗🌘🌍�
 #[cfg(test)]
 mod tests {
 	use crate::{Base, Emoji};
+
+	extern crate alloc;
+	use alloc::vec;
 
 	#[test]
 	fn byte1_rt() {
